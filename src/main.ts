@@ -6,7 +6,7 @@
 console.log("🎮 CMPM 121 - Starting...");
 
 // Simple counter for demonstration
-// deno-lint-ignore prefer-const
+// initialize counter
 let counter: number = 0;
 
 // Create basic HTML structure
@@ -21,6 +21,7 @@ const button = document.getElementById("increment")!;
 const counterElement = document.getElementById("counter")!;
 
 button.addEventListener("click", () => {
-  // This looks like to a good place to add some logic!
+  // This looks like to a good place to look up add some logic!
+  counter = counter + 1;
   console.log("I have these thingies:", button, counterElement, counter);
 });
