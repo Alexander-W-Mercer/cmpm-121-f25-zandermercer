@@ -1,6 +1,7 @@
 /**
  * Main entry point for the CMPM 121 Section Activity
  * Simple starter template - customize to your heart's content!
+ * just adding this here, in order to start project, it is ctrl-shift-b
  */
 
 console.log("🎮 CMPM 121 - Starting...");
@@ -14,6 +15,7 @@ document.body.innerHTML = `
   <h1>CMPM 121 Project</h1>
   <p>Counter: <span id="counter">0</span></p>
   <button id="increment">Click Me!</button>
+  <button id="increment">🍀</button>
 `;
 
 // Add click handler
