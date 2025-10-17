@@ -22,9 +22,19 @@ document.body.innerHTML = `
 const button = document.getElementById("increment")!;
 const counterElement = document.getElementById("clovercounter")!;
 
+function increase(amount: number): void {
+  counter = counter + amount;
+  counterElement.innerHTML = counter.toString();
+  console.log("I have these thingies:", button, counterElement, counter);
+}
+
 button.addEventListener("click", () => {
   // This looks like to a good place to look up add some logic!
   counter = counter + 1;
   counterElement.innerHTML = counter.toString();
   console.log("I have these thingies:", button, counterElement, counter);
 });
+
+const multiplier: number = 1;
+
+setInterval(increase, 1000, multiplier); // (func, delay) delay in miliseconds.
