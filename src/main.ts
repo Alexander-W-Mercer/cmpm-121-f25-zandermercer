@@ -12,12 +12,13 @@ document.body.innerHTML = `
   <h1>CMPM 121 Project</h1>
   <p>Clovers Earned: <span id="clovercounter">0</span></p>
   <button id="increment">🍀</button>
+  <button id="payFarmer">👨‍🌾Clover Picker (10)</button>
 `;
 
 // Simple counter for demonstration
 // initialize counter
 let counter: number = 0;
-const increaseRate: number = 1;
+let increaseRate: number = 0;
 let pastTime = Date.now();
 //const pastTime = Date.now();
 requestAnimationFrame(step);
@@ -33,6 +34,7 @@ function step() {
 
 // Add click handler
 const button = document.getElementById("increment")!;
+const farmer = document.getElementById("payFarmer")!;
 const counterElement = document.getElementById("clovercounter")!;
 
 function updateClovers(delta: number): void {
@@ -43,6 +45,17 @@ function updateClovers(delta: number): void {
 
 button.addEventListener("click", () => {
   // This looks like to a good place to look up add some logic!
+
+  counter = counter + 1;
+  counterElement.innerHTML = counter.toString();
+  console.log("I have these thingies:", button, counterElement, counter);
+});
+
+farmer.addEventListener("click", () => {
+  if (counter >= 10) {
+    counter = counter - 10;
+    increaseRate = increaseRate + 1;
+  }
 
   counter = counter + 1;
   counterElement.innerHTML = counter.toString();
