@@ -11,6 +11,7 @@ console.log("🎮 CMPM 121 - Starting...");
 document.body.innerHTML = `
   <h1>CMPM 121 Project</h1>
   <p>Clovers Earned: <span id="clovercounter">0</span></p>
+  <p>Clovers/sec: <span id="ratecounter">0</span></p>
   <button id="increment">🍀</button>
   <button id="payPicker">🪿Clover Picker (10)</button>
   <button id="payFarmer">👨‍🌾Clover Farmer (100)</button>
@@ -40,11 +41,17 @@ const picker = document.getElementById("payPicker")!;
 const farmer = document.getElementById("payFarmer")!;
 const farm = document.getElementById("buyFarm")!;
 const counterElement = document.getElementById("clovercounter")!;
+const rateElement = document.getElementById("ratecounter")!;
 
 function updateClovers(delta: number): void {
   counter = counter + delta * increaseRate;
   counterElement.innerHTML = counter.toFixed(2).toString();
   console.log("I have these thingies:", button, counterElement, counter);
+}
+
+function updateRate(): void {
+  rateElement.innerHTML = increaseRate.toFixed(1).toString();
+  console.log("I have these thingies:", button, rateElement, counter);
 }
 
 button.addEventListener("click", () => {
@@ -59,31 +66,22 @@ picker.addEventListener("click", () => {
   if (counter >= 10) {
     counter = counter - 10;
     increaseRate = increaseRate + 0.1;
+    updateRate();
   }
-
-  counter = counter + 1;
-  counterElement.innerHTML = counter.toString();
-  console.log("I have these thingies:", button, counterElement, counter);
 });
 
 farmer.addEventListener("click", () => {
   if (counter >= 100) {
     counter = counter - 100;
     increaseRate = increaseRate + 2;
+    updateRate();
   }
-
-  counter = counter + 1;
-  counterElement.innerHTML = counter.toString();
-  console.log("I have these thingies:", button, counterElement, counter);
 });
 
 farm.addEventListener("click", () => {
   if (counter >= 1000) {
     counter = counter - 1000;
     increaseRate = increaseRate + 50;
+    updateRate();
   }
-
-  counter = counter + 1;
-  counterElement.innerHTML = counter.toString();
-  console.log("I have these thingies:", button, counterElement, counter);
 });
