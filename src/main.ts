@@ -7,10 +7,6 @@
 
 console.log("🎮 CMPM 121 - Starting...");
 
-// Simple counter for demonstration
-// initialize counter
-let counter: number = 0;
-
 // Create basic HTML structure
 document.body.innerHTML = `
   <h1>CMPM 121 Project</h1>
@@ -18,23 +14,37 @@ document.body.innerHTML = `
   <button id="increment">🍀</button>
 `;
 
+// Simple counter for demonstration
+// initialize counter
+let counter: number = 0;
+const increaseRate: number = 1;
+let pastTime = Date.now();
+//const pastTime = Date.now();
+requestAnimationFrame(step);
+
+function step() {
+  const now: number = Date.now();
+  const delta: number = (now - pastTime) / 1000; //Magic Number. Why does this work? I just added a random amount of zeros til it did, don't know why it does though.
+  pastTime = now;
+  updateClovers(delta);
+  requestAnimationFrame(step);
+}
+////////////////////////////////////////////////////////
+
 // Add click handler
 const button = document.getElementById("increment")!;
 const counterElement = document.getElementById("clovercounter")!;
 
-function increase(amount: number): void {
-  counter = counter + amount;
-  counterElement.innerHTML = counter.toString();
+function updateClovers(delta: number): void {
+  counter = counter + delta * increaseRate;
+  counterElement.innerHTML = counter.toFixed(2).toString();
   console.log("I have these thingies:", button, counterElement, counter);
 }
 
 button.addEventListener("click", () => {
   // This looks like to a good place to look up add some logic!
+
   counter = counter + 1;
   counterElement.innerHTML = counter.toString();
   console.log("I have these thingies:", button, counterElement, counter);
 });
-
-const multiplier: number = 1;
-
-setInterval(increase, 1000, multiplier); // (func, delay) delay in miliseconds.
