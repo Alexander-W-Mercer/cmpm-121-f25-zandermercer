@@ -9,7 +9,7 @@ console.log("🎮 CMPM 121 - Starting...");
 
 // Create basic HTML structure
 document.body.innerHTML = `
-  <h1>CMPM 121 Project</h1>
+  <h1>CMPM 121 - Clover Clicker</h1>
   <p>Clovers Earned: <span id="clovercounter">0</span></p>
   <p>Clovers/sec: <span id="ratecounter">0</span></p>
   <button id="increment">🍀</button>
@@ -17,6 +17,7 @@ document.body.innerHTML = `
   <button id="payFarmer">👨‍🌾Clover Farmer (100)</button>
   <button id="buyFarm">🚜Clover Farm (1000)</button>
 `;
+document.body.style.backgroundColor = "lightgreen";
 
 // Simple counter for demonstration
 // initialize counter
