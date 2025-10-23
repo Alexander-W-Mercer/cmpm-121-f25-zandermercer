@@ -1,0 +1,50 @@
+/* Minimal, game-themed button styles — inlined for simplicity */
+/* Accent: purple arcade; text: white; compact geometry and transitions */
+
+/* Small, clear button reset + compact gamey default */
+
+/* Style Code generated with Copilot*/
+
+button, .btn {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: linear-gradient(180deg, #2c9e37, #0e6021);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 120ms ease, filter 120ms ease;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+  user-select: none;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+  background: #5b21b6;
+}
+
+button:focus-visible, .btn:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.14);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* simple secondary / muted button */
+.btn--muted {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #7c3aed;
+  box-shadow: none;
+}

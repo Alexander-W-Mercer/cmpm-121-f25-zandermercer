@@ -5,6 +5,8 @@
  * or type just "deno task dev" in the terminal
  */
 
+import "./style.css";
+
 console.log("🎮 CMPM 121 - Starting...");
 
 // Create basic HTML structure
