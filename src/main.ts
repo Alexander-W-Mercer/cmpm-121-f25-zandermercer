@@ -62,26 +62,16 @@ button.addEventListener("click", () => {
   console.log("I have these thingies:", button, counterElement, counter);
 });
 
-picker.addEventListener("click", () => {
-  if (counter >= 10) {
-    counter = counter - 10;
-    increaseRate = increaseRate + 0.1;
-    updateRate();
-  }
-});
+picker.addEventListener("click", makeClickListener(10, 0.1));
+farmer.addEventListener("click", makeClickListener(100, 2));
+farm.addEventListener("click", makeClickListener(1000, 50));
 
-farmer.addEventListener("click", () => {
-  if (counter >= 100) {
-    counter = counter - 100;
-    increaseRate = increaseRate + 2;
-    updateRate();
-  }
-});
-
-farm.addEventListener("click", () => {
-  if (counter >= 1000) {
-    counter = counter - 1000;
-    increaseRate = increaseRate + 50;
-    updateRate();
-  }
-});
+function makeClickListener(cost: number, rate: number) {
+  return () => {
+    if (counter >= cost) {
+      counter = counter - cost;
+      increaseRate = increaseRate + rate;
+      updateRate();
+    }
+  };
+}
