@@ -23,6 +23,7 @@ document.body.innerHTML = `
 let counter: number = 1000;
 let increaseRate: number = 0;
 let pastTime = Date.now();
+let costs: number[] = [10, 100, 1000];
 //const pastTime = Date.now();
 requestAnimationFrame(step);
 
@@ -46,32 +47,31 @@ const rateElement = document.getElementById("ratecounter")!;
 function updateClovers(delta: number): void {
   counter = counter + delta * increaseRate;
   counterElement.innerHTML = counter.toFixed(2).toString();
-  console.log("I have these thingies:", button, counterElement, counter);
-}
-
-function updateRate(): void {
-  rateElement.innerHTML = increaseRate.toFixed(1).toString();
-  console.log("I have these thingies:", button, rateElement, counter);
+  //console.log("I have these thingies:", button, counterElement, counter);
 }
 
 button.addEventListener("click", () => {
   // This looks like to a good place to look up add some logic!
-
+  console.log(costs[0]);
   counter = counter + 1;
   counterElement.innerHTML = counter.toString();
-  console.log("I have these thingies:", button, counterElement, counter);
+  //console.log("I have these thingies:", button, counterElement, counter);
 });
 
-picker.addEventListener("click", makeClickListener(10, 0.1));
-farmer.addEventListener("click", makeClickListener(100, 2));
-farm.addEventListener("click", makeClickListener(1000, 50));
+picker.addEventListener("click", makeClickListener(0.1, 0));
+farmer.addEventListener("click", makeClickListener(2, 1));
+farm.addEventListener("click", makeClickListener(50, 2));
 
-function makeClickListener(cost: number, rate: number) {
+function makeClickListener(rate: number, id: number) {
   return () => {
-    if (counter >= cost) {
-      counter = counter - cost;
+    if (counter >= costs[id]) {
+      counter = counter - costs[id];
       increaseRate = increaseRate + rate;
-      updateRate();
+      console.log(costs[id]);
+      costs[id] = costs[id] + (costs[id] * 0.15); // Increase cost by 15% for every purchase.
+      rateElement.innerHTML = increaseRate.toFixed(1).toString();
+      console.log(costs[id]);
+      //console.log("I have these thingies:", button, rateElement, counter);
     }
   };
 }
