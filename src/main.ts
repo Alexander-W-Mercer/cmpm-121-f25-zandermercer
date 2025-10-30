@@ -79,7 +79,7 @@ document.body.style.backgroundColor = "lightgreen";
 
 // Simple counter for demonstration
 // initialize counter
-let counter: number = 100000;
+let counter: number = 0;
 let increaseRate: number = 0;
 let pastTime = Date.now();
 requestAnimationFrame(step);
