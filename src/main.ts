@@ -9,24 +9,57 @@ import "./style.css";
 
 console.log("🎮 CMPM 121 - Starting...");
 
+interface Button {
+  name: string;
+  cost: number;
+  rate: number;
+  id: string;
+}
+
+const CloverPicker: Button = {
+  name: "🪿Clover Picker",
+  cost: 10,
+  rate: 0.1,
+  id: "payPicker",
+};
+
+const CloverFarmer: Button = {
+  name: "👨‍🌾Clover Farmer",
+  cost: 100,
+  rate: 2,
+  id: "payFarmer",
+};
+
+const CloverFarm: Button = {
+  name: "🚜Clover Farm",
+  cost: 1000,
+  rate: 50,
+  id: "buyFarm",
+};
+
 // Create basic HTML structure
 document.body.innerHTML = `
   <h1>CMPM 121 - Clover Clicker</h1>
   <p>Clovers Earned: <span id="clovercounter">0</span></p>
   <p>Clovers/sec: <span id="ratecounter">0</span></p>
   <button id="increment">🍀</button>
-  <button id="payPicker">🪿Clover Picker (10)</button>
-  <button id="payFarmer">👨‍🌾Clover Farmer (100)</button>
-  <button id="buyFarm">🚜Clover Farm (1000)</button>
+  <button id=${CloverPicker.id}>${CloverPicker.name} (${CloverPicker.cost})</button>
+  <button id=${CloverFarmer.id}>${CloverFarmer.name} (${CloverFarmer.cost})</button>
+  <button id=${CloverFarm.id}>${CloverFarm.name} (${CloverFarm.cost})</button>
 `;
 document.body.style.backgroundColor = "lightgreen";
+
+// TO DO:
+// 1. Figure out way to initialize the click handlers easily for each button
+// 2. Update button text to show current cost after purchase
+// 3. Make sure all the stuff works
 
 // Simple counter for demonstration
 // initialize counter
 let counter: number = 1000;
 let increaseRate: number = 0;
 let pastTime = Date.now();
-const costs: number[] = [10, 100, 1000];
+// const costs: number[] = [10, 100, 1000];
 requestAnimationFrame(step);
 
 function step() {
@@ -40,9 +73,9 @@ function step() {
 
 // Add click handler
 const button = document.getElementById("increment")!;
-const picker = document.getElementById("payPicker")!;
-const farmer = document.getElementById("payFarmer")!;
-const farm = document.getElementById("buyFarm")!;
+const picker = document.getElementById(CloverPicker.id)!;
+const farmer = document.getElementById(CloverFarmer.id)!;
+const farm = document.getElementById(CloverFarm.id)!;
 const counterElement = document.getElementById("clovercounter")!;
 const rateElement = document.getElementById("ratecounter")!;
 
@@ -56,17 +89,33 @@ button.addEventListener("click", () => {
   counterElement.innerHTML = counter.toString();
 });
 
-picker.addEventListener("click", makeClickListener(0.1, 0));
-farmer.addEventListener("click", makeClickListener(2, 1));
-farm.addEventListener("click", makeClickListener(50, 2));
+picker.addEventListener("click", makeClickListener(CloverPicker));
+farmer.addEventListener("click", makeClickListener(CloverFarmer));
+farm.addEventListener("click", makeClickListener(CloverFarm));
 
-function makeClickListener(rate: number, id: number) {
+function makeClickListener(purchasable: Button) {
   return () => {
-    if (counter >= costs[id]) {
-      counter = counter - costs[id];
-      increaseRate = increaseRate + rate;
-      costs[id] = costs[id] + (costs[id] * 0.15); // Increase cost by 15% for every purchase.
-      rateElement.innerHTML = increaseRate.toFixed(1).toString();
-    }
+    if (counter >= purchasable.cost) { // Check if enough clovers to buy item
+      counter = counter - purchasable.cost;
+      increaseRate = increaseRate + purchasable.rate;
+      purchasable.cost = purchasable.cost + (purchasable.cost * 0.15); // Increase cost by 15% for every purchase.
+      purchasable.cost * 0.15; // Increase cost by 15% for every purchase.
+      rateElement.innerHTML = increaseRate.toFixed(1).toString(); // Update rate display
+      console.log(
+        `Purchased ${purchasable.name}. New cost: ${
+          purchasable.cost.toFixed(2)
+        }`,
+      );
+      // Update button text to show new cost
+      farm.innerHTML = `${CloverFarm.name} (${CloverFarm.cost.toFixed(2)})`;
+
+      farmer.innerHTML = `${CloverFarmer.name} (${
+        CloverFarmer.cost.toFixed(2)
+      })`;
+
+      picker.innerHTML = `${CloverPicker.name} (${
+        CloverPicker.cost.toFixed(2)
+      })`;
+    } // This format is annoying me
   };
 }
