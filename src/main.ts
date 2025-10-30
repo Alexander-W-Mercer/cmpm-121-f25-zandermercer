@@ -14,28 +14,46 @@ interface Button {
   cost: number;
   rate: number;
   id: string;
+  description: string;
 }
 
-const CloverPicker: Button = {
-  name: "🪿Clover Picker",
-  cost: 10,
-  rate: 0.1,
-  id: "payPicker",
-};
-
-const CloverFarmer: Button = {
-  name: "👨‍🌾Clover Farmer",
-  cost: 100,
-  rate: 2,
-  id: "payFarmer",
-};
-
-const CloverFarm: Button = {
-  name: "🚜Clover Farm",
-  cost: 1000,
-  rate: 50,
-  id: "buyFarm",
-};
+const buttons: Button[] = [
+  {
+    name: "🪿Clover Picker",
+    cost: 10,
+    rate: 0.1,
+    id: "buyPicker",
+    description: "A friendly little duck to help pick clovers.",
+  },
+  {
+    name: "👨‍🌾Clover Farmer",
+    cost: 100,
+    rate: 2,
+    id: "buyFarmer",
+    description: "A farmer who will help to harvest clovers.",
+  },
+  {
+    name: "🚜Clover Farm",
+    cost: 1000,
+    rate: 50,
+    id: "buyFarm",
+    description: "A whole ranch dedicated to the art of farming clovers.",
+  },
+  {
+    name: "🏭Clover Factory",
+    cost: 10000,
+    rate: 500,
+    id: "buyFactory",
+    description: "The pinnacle of clover production technology.",
+  },
+  {
+    name: "🧪Clover Lab",
+    cost: 100000,
+    rate: 5000,
+    id: "buyLab",
+    description: "The future of clover science starts here",
+  },
+];
 
 // Create basic HTML structure
 document.body.innerHTML = `
@@ -43,10 +61,15 @@ document.body.innerHTML = `
   <p>Clovers Earned: <span id="clovercounter">0</span></p>
   <p>Clovers/sec: <span id="ratecounter">0</span></p>
   <button id="increment">🍀</button>
-  <button id=${CloverPicker.id}>${CloverPicker.name} (${CloverPicker.cost})</button>
-  <button id=${CloverFarmer.id}>${CloverFarmer.name} (${CloverFarmer.cost})</button>
-  <button id=${CloverFarm.id}>${CloverFarm.name} (${CloverFarm.cost})</button>
 `;
+
+for (const button of buttons) {
+  const element = document.createElement("button");
+  element.id = button.id;
+  element.innerHTML = `${button.name} (${button.cost})`;
+  element.title = button.description; // Add description as tooltip
+  document.body.appendChild(element);
+}
 document.body.style.backgroundColor = "lightgreen";
 
 // TO DO:
@@ -56,28 +79,25 @@ document.body.style.backgroundColor = "lightgreen";
 
 // Simple counter for demonstration
 // initialize counter
-let counter: number = 1000;
+let counter: number = 100000;
 let increaseRate: number = 0;
 let pastTime = Date.now();
-// const costs: number[] = [10, 100, 1000];
 requestAnimationFrame(step);
 
 function step() {
   const now: number = Date.now();
-  const delta: number = (now - pastTime) / 1000; // Magic Number. Why does this work? I just added a random amount of zeros til it did, don't know why it does though.
+  const delta: number = (now - pastTime) / 1000; // Convert to seconds
   pastTime = now;
   updateClovers(delta);
   requestAnimationFrame(step);
 }
 ////////////////////////////////////////////////////////
 
-// Add click handler
-const button = document.getElementById("increment")!;
-const picker = document.getElementById(CloverPicker.id)!;
-const farmer = document.getElementById(CloverFarmer.id)!;
-const farm = document.getElementById(CloverFarm.id)!;
 const counterElement = document.getElementById("clovercounter")!;
 const rateElement = document.getElementById("ratecounter")!;
+
+// Add click handler
+const button = document.getElementById("increment")!;
 
 function updateClovers(delta: number): void {
   counter = counter + delta * increaseRate;
@@ -86,20 +106,21 @@ function updateClovers(delta: number): void {
 
 button.addEventListener("click", () => {
   counter = counter + 1;
+  console.log("This button has been clicked!");
   counterElement.innerHTML = counter.toString();
 });
 
-picker.addEventListener("click", makeClickListener(CloverPicker));
-farmer.addEventListener("click", makeClickListener(CloverFarmer));
-farm.addEventListener("click", makeClickListener(CloverFarm));
+for (const button of buttons) {
+  const element = document.getElementById(button.id)!;
+  element.addEventListener("click", makeClickListener(button));
+}
 
 function makeClickListener(purchasable: Button) {
   return () => {
     if (counter >= purchasable.cost) { // Check if enough clovers to buy item
       counter = counter - purchasable.cost;
       increaseRate = increaseRate + purchasable.rate;
-      purchasable.cost = purchasable.cost + (purchasable.cost * 0.15); // Increase cost by 15% for every purchase.
-      purchasable.cost * 0.15; // Increase cost by 15% for every purchase.
+      purchasable.cost *= 1.15; // Increase cost by 15% for every purchase.
       rateElement.innerHTML = increaseRate.toFixed(1).toString(); // Update rate display
       console.log(
         `Purchased ${purchasable.name}. New cost: ${
@@ -107,15 +128,10 @@ function makeClickListener(purchasable: Button) {
         }`,
       );
       // Update button text to show new cost
-      farm.innerHTML = `${CloverFarm.name} (${CloverFarm.cost.toFixed(2)})`;
-
-      farmer.innerHTML = `${CloverFarmer.name} (${
-        CloverFarmer.cost.toFixed(2)
-      })`;
-
-      picker.innerHTML = `${CloverPicker.name} (${
-        CloverPicker.cost.toFixed(2)
-      })`;
-    } // This format is annoying me
+      for (const { name, cost, id } of buttons) {
+        const element = document.getElementById(id)!;
+        element.innerHTML = `${name} (${cost.toFixed(0)})`;
+      }
+    }
   };
 }
