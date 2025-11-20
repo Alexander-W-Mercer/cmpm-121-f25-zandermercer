@@ -1,9 +1,3 @@
-/**
- * Main entry point for the CMPM 121 Section Activity
- * Simple starter template - customize to your heart's content!
- * just adding this here, in order to start project, it is ctrl-shift-b
- * or type just "deno task dev" in the terminal
- */
 
 import "./style.css";
 
@@ -71,11 +65,6 @@ for (const button of buttons) {
   document.body.appendChild(element);
 }
 document.body.style.backgroundColor = "lightgreen";
-
-// TO DO:
-// 1. Figure out way to initialize the click handlers easily for each button
-// 2. Update button text to show current cost after purchase
-// 3. Make sure all the stuff works
 
 // Simple counter for demonstration
 // initialize counter
