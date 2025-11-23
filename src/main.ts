@@ -1,4 +1,3 @@
-
 import "./style.css";
 
 console.log("🎮 CMPM 121 - Starting...");
