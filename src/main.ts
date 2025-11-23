@@ -1,7 +1,5 @@
 import "./style.css";
 
-console.log("🎮 CMPM 121 - Starting...");
-
 ////////////////////////////////////// TYPES /////////////////////////////////
 
 interface Button {
@@ -117,11 +115,6 @@ function createBuyHandler(purchasable: Button) {
       cloversPerSecond = cloversPerSecond + purchasable.rate;
       purchasable.cost *= 1.15; // Increase cost by 15% for every purchase.
       rateElement.innerHTML = cloversPerSecond.toFixed(1).toString(); // Update rate display
-      console.log(
-        `Purchased ${purchasable.name}. New cost: ${
-          purchasable.cost.toFixed(2)
-        }`,
-      );
       // Update button text to show new cost
       for (const { name, cost, id } of buttons) {
         const element = document.getElementById(id)!;
