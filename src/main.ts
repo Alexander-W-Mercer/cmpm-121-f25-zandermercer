@@ -2,6 +2,8 @@ import "./style.css";
 
 console.log("🎮 CMPM 121 - Starting...");
 
+////////////////////////////////////// TYPES /////////////////////////////////
+
 interface Button {
   name: string;
   cost: number;
@@ -9,6 +11,8 @@ interface Button {
   id: string;
   description: string;
 }
+
+////////////////////////////////////// DATA /////////////////////////////////
 
 const buttons: Button[] = [
   {
@@ -48,6 +52,8 @@ const buttons: Button[] = [
   },
 ];
 
+////////////////////////////////////// DOM ELEMENTS /////////////////////////////////
+
 // Create basic HTML structure
 document.body.innerHTML = `
   <h1>CMPM 121 - Clover Clicker</h1>
@@ -56,6 +62,20 @@ document.body.innerHTML = `
   <button id="increment">🍀</button>
 `;
 
+document.body.style.backgroundColor = "lightgreen";
+
+////////////////////////////////////// VARIABLES & FUNCTIONS /////////////////////////////////
+
+const counterElement = document.getElementById("clovercounter")!;
+const rateElement = document.getElementById("ratecounter")!;
+
+let counter: number = 0;
+let increaseRate: number = 0;
+let pastTime = Date.now();
+
+// Add click handler
+const button = document.getElementById("increment")!;
+
 for (const button of buttons) {
   const element = document.createElement("button");
   element.id = button.id;
@@ -63,14 +83,6 @@ for (const button of buttons) {
   element.title = button.description; // Add description as tooltip
   document.body.appendChild(element);
 }
-document.body.style.backgroundColor = "lightgreen";
-
-// Simple counter for demonstration
-// initialize counter
-let counter: number = 0;
-let increaseRate: number = 0;
-let pastTime = Date.now();
-requestAnimationFrame(step);
 
 function step() {
   const now: number = Date.now();
@@ -79,18 +91,13 @@ function step() {
   updateClovers(delta);
   requestAnimationFrame(step);
 }
-////////////////////////////////////////////////////////
-
-const counterElement = document.getElementById("clovercounter")!;
-const rateElement = document.getElementById("ratecounter")!;
-
-// Add click handler
-const button = document.getElementById("increment")!;
 
 function updateClovers(delta: number): void {
   counter = counter + delta * increaseRate;
   counterElement.innerHTML = counter.toFixed(2).toString();
 }
+
+////////////////////////////////////// EVENT LISTENERS /////////////////////////////////
 
 button.addEventListener("click", () => {
   counter = counter + 1;
@@ -123,3 +130,8 @@ function makeClickListener(purchasable: Button) {
     }
   };
 }
+
+////////////////////////////////////// GAME LOOP /////////////////////////////////
+
+// initialize counter
+requestAnimationFrame(step);
