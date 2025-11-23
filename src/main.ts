@@ -70,7 +70,7 @@ const counterElement = document.getElementById("clovercounter")!;
 const rateElement = document.getElementById("ratecounter")!;
 
 let counter: number = 0;
-let increaseRate: number = 0;
+let cloversPerSecond: number = 0;
 let pastTime = Date.now();
 
 // Add click handler
@@ -93,7 +93,7 @@ function step() {
 }
 
 function updateClovers(delta: number): void {
-  counter = counter + delta * increaseRate;
+  counter = counter + delta * cloversPerSecond;
   counterElement.innerHTML = counter.toFixed(2).toString();
 }
 
@@ -107,16 +107,16 @@ button.addEventListener("click", () => {
 
 for (const button of buttons) {
   const element = document.getElementById(button.id)!;
-  element.addEventListener("click", makeClickListener(button));
+  element.addEventListener("click", createBuyHandler(button));
 }
 
-function makeClickListener(purchasable: Button) {
+function createBuyHandler(purchasable: Button) {
   return () => {
     if (counter >= purchasable.cost) { // Check if enough clovers to buy item
       counter = counter - purchasable.cost;
-      increaseRate = increaseRate + purchasable.rate;
+      cloversPerSecond = cloversPerSecond + purchasable.rate;
       purchasable.cost *= 1.15; // Increase cost by 15% for every purchase.
-      rateElement.innerHTML = increaseRate.toFixed(1).toString(); // Update rate display
+      rateElement.innerHTML = cloversPerSecond.toFixed(1).toString(); // Update rate display
       console.log(
         `Purchased ${purchasable.name}. New cost: ${
           purchasable.cost.toFixed(2)
