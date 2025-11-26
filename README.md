@@ -44,3 +44,12 @@ This project is configured for automatic deployment to GitHub Pages using GitHub
 4. Your site will be published at `https://<your-github-username>.github.io/<repository-name>/`
 
 // I have added thr incremental counter
+
+////////////////////////////////////////////////////////////////////////////////////////////
+Inspirations from other Projects:
+
+Centralized Buttons with List of Purchasables in Collumn:
+https://github.com/B0Toby/Incremental-Game-Example
+
+Buttons that move when you click them:
+https://fizhou.github.io/cmpm-121-f25-d1-fiona
