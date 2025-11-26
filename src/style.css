@@ -24,16 +24,15 @@ main, h1, p {
   text-align: center;
 }
 
+/* spacing for buttons */
 button, .btn {
   margin-left: auto;
   margin-right: auto;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-/* Minimal, game-themed button styles — inlined for simplicity */
-/* Accent: green arcade; text: white; compact geometry and transitions */
 
-/* Small, clear button reset + compact gamey default */
+/* primary green button style */
 button, .btn {
   appearance: none;
   -webkit-appearance: none;
@@ -60,7 +59,7 @@ button, .btn {
   box-shadow: none;
 }
 
-/* Centered, glassy green clover button (no glint) */
+/* Centered, green clover button */
 #increment {
   position: relative;
   left: 0;
@@ -136,10 +135,6 @@ main, h1, p, .btn, button:not(#increment) {
 #increment:focus-visible {
   outline: 3px solid rgba(46, 125, 50, 0.18);
   outline-offset: 4px;
-}
-
-@keyframes clover-press {
-  /* Removed clover-press keyframes to prevent position shift on click */
 }
 
 @keyframes clover-pulse {
